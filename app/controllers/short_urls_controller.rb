@@ -10,6 +10,7 @@ class ShortUrlsController < ApplicationController
   # GET /short_urls/1
   # GET /short_urls/1.json
   def show
+    redirect_to @short_url.original_url
   end
 
   # GET /short_urls/new
