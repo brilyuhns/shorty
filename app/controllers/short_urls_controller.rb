@@ -17,10 +17,6 @@ class ShortUrlsController < ApplicationController
     @short_url = ShortUrl.new
   end
 
-  # GET /short_urls/1/edit
-  def edit
-  end
-
   # POST /short_urls
   # POST /short_urls.json
   def create
@@ -32,20 +28,6 @@ class ShortUrlsController < ApplicationController
         format.json { render :show, status: :created, location: @short_url }
       else
         format.html { render :new }
-        format.json { render json: @short_url.errors, status: :unprocessable_entity }
-      end
-    end
-  end
-
-  # PATCH/PUT /short_urls/1
-  # PATCH/PUT /short_urls/1.json
-  def update
-    respond_to do |format|
-      if @short_url.update(short_url_params)
-        format.html { redirect_to @short_url, notice: 'Short url was successfully updated.' }
-        format.json { render :show, status: :ok, location: @short_url }
-      else
-        format.html { render :edit }
         format.json { render json: @short_url.errors, status: :unprocessable_entity }
       end
     end
