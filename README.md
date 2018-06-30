@@ -3,20 +3,18 @@ Shorty
 
 [![Deploy to Heroku](https://www.herokucdn.com/deploy/button.png)](https://heroku.com/deploy)
 
-This application was generated with the [rails_apps_composer](https://github.com/RailsApps/rails_apps_composer) gem
-provided by the [RailsApps Project](http://railsapps.github.io/).
 
-Rails Composer is supported by developers who purchase our RailsApps tutorials.
+## Objective:
+1. Provide a simple web front which will take URL input and give back a shortened URL
+2. When user access the short URL it should be redirected to full URL
 
-Problems? Issues?
------------
 
-Need help? Ask on Stack Overflow with the tag 'railsapps.'
-
-Your application contains diagnostics in the README file. Please provide a copy of the README file when reporting any issues.
-
-If the application doesn't work as expected, please [report an issue](https://github.com/RailsApps/rails_apps_composer/issues)
-and include the diagnostics.
+## Design and thought process:
+- Start with a simple API that accepts URL and returns a URL of the format https://domain/urls/{short-url}. 
+- The API will save the url to a urls table
+- `short-url` can be the id of the url in the database table
+- Consider a hash instead of id as the next step. Its better to not show the id of an internal object.
+- One approach to short url is given the same url, return the same `short-url`. But sometimes, we want different `short-url` for tracking. I am making an assumption that unique short url is not a requirement.
 
 Ruby on Rails
 -------------
