@@ -24,9 +24,10 @@ Shorty
 - /short_url/{id} redirects to the original url
 - /short_url/{invalid id} shows a 404 page
 - Specs for new and create short_url
+- Show an info page with the short url once created
+
 
 ## Next steps:
-- Show an info page with the short url once created
 - Replace id with a hash code
 - Make sure all specs pass
 - Clean up the unused code
