@@ -22,5 +22,9 @@ RSpec.describe ShortUrlsController, type: :controller do
       expect(response).to have_http_status(302)
       expect(response['Location']).to eq('https://fb.com')
     end
+    it "shows 404 for invalid id" do
+      get :show, params: { id: 0 }
+      expect(response).to have_http_status(404)
+    end    
   end
 end
