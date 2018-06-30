@@ -1,0 +1,9 @@
+%p#notice= notice
+
+%p
+  %b Original url:
+  = @short_url.original_url
+
+= link_to 'Edit', edit_short_url_path(@short_url)
+\|
+= link_to 'Back', short_urls_path
