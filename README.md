@@ -16,6 +16,21 @@ Shorty
 - Consider a hash instead of id as the next step. Its better to not show the id of an internal object.
 - One approach to short url is given the same url, return the same `short-url`. But sometimes, we want different `short-url` for tracking. I am making an assumption that unique short url is not a requirement.
 
+
+
+## So far we have:
+- /short_urls/new allows user to enter the url
+- /short_urls/create creates the short_url object
+- /short_url/{id} redirects to the original url
+- /short_url/{invalid id} shows a 404 page
+
+## Next steps:
+- Specs for new and create short_url
+- Show an info page with the short url once created
+- Replace id with a hash code
+- Make sure all specs pass
+- Clean up the unused code
+
 Ruby on Rails
 -------------
 
