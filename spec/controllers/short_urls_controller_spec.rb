@@ -27,4 +27,20 @@ RSpec.describe ShortUrlsController, type: :controller do
       expect(response).to have_http_status(404)
     end    
   end
+
+  describe "GET #new" do
+    it "get new page" do
+      get :new
+      expect(response).to have_http_status(200)
+    end
+  end
+
+  describe "POST #create" do
+    let(:params) { {short_url: {original_url: "https://www.google.com"}} }
+    it "create a short_url" do
+      post :create, params: params
+      expect(response).to have_http_status(302)
+      expect(flash[:notice]).to eq 'Short url was successfully created.'
+    end
+  end
 end
