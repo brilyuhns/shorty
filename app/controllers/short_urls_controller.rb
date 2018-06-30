@@ -1,5 +1,5 @@
 class ShortUrlsController < ApplicationController
-  before_action :set_short_url, only: [:show, :edit, :update, :destroy]
+  before_action :set_short_url, only: [:show, :info, :edit, :update, :destroy]
 
   # GET /short_urls
   # GET /short_urls.json
@@ -25,13 +25,18 @@ class ShortUrlsController < ApplicationController
 
     respond_to do |format|
       if @short_url.save
-        format.html { redirect_to @short_url, notice: 'Short url was successfully created.' }
-        format.json { render :show, status: :created, location: @short_url }
+        format.html { redirect_to info_short_url_url(@short_url), notice: 'Short url was successfully created.' }
+        format.json { render :info, status: :created, location: @short_url }
       else
         format.html { render :new }
         format.json { render json: @short_url.errors, status: :unprocessable_entity }
       end
     end
+  end
+
+  # GET /short_urls/1
+  # GET /short_urls/1.json
+  def info
   end
 
   # DELETE /short_urls/1

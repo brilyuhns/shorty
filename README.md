@@ -23,9 +23,9 @@ Shorty
 - /short_urls/create creates the short_url object
 - /short_url/{id} redirects to the original url
 - /short_url/{invalid id} shows a 404 page
+- Specs for new and create short_url
 
 ## Next steps:
-- Specs for new and create short_url
 - Show an info page with the short url once created
 - Replace id with a hash code
 - Make sure all specs pass
