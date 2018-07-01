@@ -32,6 +32,22 @@ Shorty
 - Make sure all specs pass
 - Clean up the unused code
 
+## Id to hashcode
+### Save code to db or not
+- If code is in db, we have to handle for uniqueness. If we have a lot of records, we would have to search by code for all those.
+- Saving in the db allows us to extend such that user can assign a code to the url.
+
+### HashIds
+- We can but don't need to store it in db. The code will be unique always. 
+- Cannot allow user to enter a custom code. If we allow user created codes, we would have to save code to db, search by code and add validation for uniqueness ourselves. 
+
+
+### Solution I am going with
+Add code field to the short_urls table with an index and uniqueness constraint. Use SecureRandom to generate a code for url. There is a #urlsafe_base64 method that seems ideal.
+Postgres integer range is between -2,147,483,648 and +2,147,483,6476. 6 characters secure random hash should give 68719476736 codes which should be enough for now. Just to be safe I will use 8 characters.
+
+
+
 Ruby on Rails
 -------------
 
