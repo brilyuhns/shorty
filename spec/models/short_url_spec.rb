@@ -2,12 +2,12 @@ require 'rails_helper'
 
 RSpec.describe ShortUrl, type: :model do
 
-  describe '#valid?' do     
-    let(:valid_url) { 'https://www.google.com' }
-    let(:code) { '123' }
+  let(:valid_url) { 'https://www.google.com' }
+  let(:code) { '123' }
 
-    let(:code_params) do { code: code } end
+  let(:code_params) do { code: code } end
 
+  describe '#valid?' do 
     shared_examples 'short_url is invalid for url' do |original_url|
       it 'returns false if original url is #{original_url}' do
         params = code_params.merge(original_url: original_url)
@@ -31,17 +31,22 @@ RSpec.describe ShortUrl, type: :model do
     it_behaves_like "short_url is valid for url", 'https://google.com'
     it_behaves_like "short_url is valid for url", 'https://google.com?search=brilyuhns'
 
-    it "is not valid if code is empty" do
-      expect(ShortUrl.new(original_url: valid_url).valid?).to eq false
-    end
-
-    it "is valid when code is not empty" do
-      expect(ShortUrl.new(original_url: valid_url, code: 'xxxx').valid?).to eq true
-    end
-
     it "is not valid when code is already used" do
       create(:short_url, original_url: valid_url, code: 'xxxx')
       expect(ShortUrl.new(original_url: valid_url, code: 'xxxx').valid?).to eq false
     end
+  end
+
+  describe '#create' do
+    it "assigns a code if code is empty" do
+      short_url = ShortUrl.create!(original_url: valid_url)
+      expect(short_url.code).not_to be_nil
+      expect(short_url.code).to satisfy { |val| val.is_a?(String) && val.size >= 1 }
+    end
+
+    it "returns true when code is not empty" do
+      short_url = ShortUrl.create(original_url: valid_url, code: 'XXX')
+      expect(ShortUrl.last).to eq(short_url)
+    end    
   end
 end
