@@ -11,4 +11,8 @@ class ShortUrl < ApplicationRecord
       break unless ShortUrl.where(code: self.code).exists?
     end
   end
+
+  def to_param
+    code
+  end
 end

@@ -2,7 +2,7 @@
 
 %p
   %b Shortened url:
-  = link_to short_url_url(@short_url), short_url_path(@short_url)
+  = link_to short_url_url(code: @short_url), short_url_path(@short_url)
 %p
   %b Original url:
   = @short_url.original_url

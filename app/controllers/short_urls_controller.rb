@@ -22,7 +22,7 @@ class ShortUrlsController < ApplicationController
   # POST /short_urls.json
   def create
     @short_url = ShortUrl.new(short_url_params)
-
+    @short_url.assign_code
     respond_to do |format|
       if @short_url.save
         format.html { redirect_to info_short_url_url(@short_url), notice: 'Short url was successfully created.' }
@@ -52,7 +52,8 @@ class ShortUrlsController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_short_url
-      @short_url = ShortUrl.find(params[:id])
+      puts params
+      @short_url = ShortUrl.find_by_code!(params[:code])
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
