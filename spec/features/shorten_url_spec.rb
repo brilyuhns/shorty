@@ -15,7 +15,7 @@ feature 'Shorten New URL' do
     
     expect(page).to have_text("Short url was successfully created.")
     expect(page).to have_content(
-      "Shortened url: #{short_url_url(ShortUrl.last)}"
+      "Shortened url: #{short_url(code: ShortUrl.last)}"
     )
   end
 end
