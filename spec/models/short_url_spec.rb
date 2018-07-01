@@ -8,50 +8,28 @@ RSpec.describe ShortUrl, type: :model do
 
     let(:code_params) do { code: code } end
 
-    it "is not valid with a blank original_url" do 
-      params = code_params.merge(original_url: '')
-    	expect(ShortUrl.new(params).valid?).to eq false
+    shared_examples 'short_url is invalid for url' do |original_url|
+      it 'returns false if original url is #{original_url}' do
+        params = code_params.merge(original_url: original_url)
+        expect(ShortUrl.new(params).valid?).to eq false
+      end
     end
 
-    it "is not valid when original_url is not a valid url " do
-      params = code_params.merge(original_url: 'some random text')
-    	expect(ShortUrl.new(params).valid?).to eq false
-    end
-    
-    it "is valid when original_url a valid http url" do
-      params = code_params.merge(original_url: 'http://www.google.com')
-      expect(ShortUrl.new(params).valid?).to eq true
+    shared_examples 'short_url is valid for url' do |original_url|
+      it 'returns true if original url is #{original_url}' do
+        params = code_params.merge(original_url: original_url)
+        expect(ShortUrl.new(params).valid?).to eq true
+      end
     end
 
-    it "is valid when original_url a https valid url" do
-      params = code_params.merge(original_url: 'https://www.google.com')
-    	expect(ShortUrl.new(params).valid?).to eq true
-    end
-
-    it "is valid when original_url a valid url without top level domain name" do
-      params = code_params.merge(original_url: 'https://google.com')
-    	expect(ShortUrl.new(params).valid?).to eq true
-    end
-    
-    it "is valid when original_url a valid url with parameters" do
-      params = code_params.merge(original_url: 'https://google.com?search=brilyuhns')
-      expect(ShortUrl.new(params).valid?).to eq true
-    end
-
-    it "is valid when original_url a valid url with parameters" do
-      params = code_params.merge(original_url: 'https://google.com?search=brilyuhns')
-      expect(ShortUrl.new(params).valid?).to eq true
-    end
-
-    it "is not valid when original_url is not http or https protocol" do
-      params = code_params.merge(original_url: 'file://google.com?search=brilyuhns')
-      expect(ShortUrl.new(params).valid?).to eq false
-    end
-
-    it "is not valid when original_url is relative url" do
-      params = code_params.merge(original_url: 'file://google.com?search=brilyuhns')
-      expect(ShortUrl.new(params).valid?).to eq false
-    end
+    it_behaves_like "short_url is invalid for url", ''
+    it_behaves_like "short_url is invalid for url", 'some random text'
+    it_behaves_like "short_url is invalid for url", 'file://google.com?search=brilyuhns'
+    it_behaves_like "short_url is invalid for url", '/something/google.com?search=brilyuhns'
+    it_behaves_like "short_url is valid for url", 'http://www.google.com'
+    it_behaves_like "short_url is valid for url", 'https://www.google.com'
+    it_behaves_like "short_url is valid for url", 'https://google.com'
+    it_behaves_like "short_url is valid for url", 'https://google.com?search=brilyuhns'
 
     it "is not valid if code is empty" do
       expect(ShortUrl.new(original_url: valid_url).valid?).to eq false
